@@ -1,0 +1,42 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE") }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+apply plugin: 'maven'
+
+group = 'com.config.server'
+version = '0.0.1'
+
+
+jar {
+	baseName = 'config-server'
+	version =  '0.0.1'
+}
+
+repositories {
+	mavenCentral()
+}
+
+
+springBoot { mainClass = "com.comcast.core.configserver.ConfigServerApplication" }
+
+bootRun {
+	systemProperties = System.properties
+}
+
+dependencies {
+	compile("org.springframework.cloud:spring-cloud-config-server:1.0.2.RELEASE")
+	compile("org.springframework.boot:spring-boot-starter-security")
+	compile("org.springframework.boot:spring-boot-starter-actuator")
+
+	testCompile("junit:junit")
+}
+
+task wrapper(type: Wrapper) { gradleVersion = '2.5' }
